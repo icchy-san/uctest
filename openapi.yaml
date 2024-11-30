@@ -81,3 +81,14 @@ components:
           format: date-time
         status:
           type: string
+      required:
+        - id
+        - published_at
+        - payment_amount
+        - commission
+        - commission_rate
+        - tax
+        - tax_rate
+        - billed_amount
+        - due_date
+        - status
