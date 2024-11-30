@@ -28,3 +28,9 @@ func (d *db) GetInvoices(tx *gorm.DB, period_start_at, period_end_at *time.Time)
 
 	return invoices, nil
 }
+
+func (d *db) CreateInvoice(tx *gorm.DB, invoice *model.Invoice) error {
+	client := d.getClient(tx)
+
+	return client.Create(invoice).Error
+}

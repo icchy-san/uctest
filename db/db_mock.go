@@ -42,6 +42,20 @@ func (m *MockDB) EXPECT() *MockDBMockRecorder {
 	return m.recorder
 }
 
+// CreateInvoice mocks base method.
+func (m *MockDB) CreateInvoice(tx *gorm.DB, invoice *model.Invoice) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateInvoice", tx, invoice)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// CreateInvoice indicates an expected call of CreateInvoice.
+func (mr *MockDBMockRecorder) CreateInvoice(tx, invoice any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateInvoice", reflect.TypeOf((*MockDB)(nil).CreateInvoice), tx, invoice)
+}
+
 // GetInvoices mocks base method.
 func (m *MockDB) GetInvoices(tx *gorm.DB, period_start_at, period_end_at *time.Time) ([]model.Invoice, error) {
 	m.ctrl.T.Helper()

@@ -11,6 +11,7 @@ import (
 
 //go:generate mockgen -source db.go -destination db_mock.go -package db
 type DB interface {
+	CreateInvoice(tx *gorm.DB, invoice *model.Invoice) error
 	GetInvoices(tx *gorm.DB, period_start_at, period_end_at *time.Time) ([]model.Invoice, error)
 }
 
