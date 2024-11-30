@@ -34,7 +34,6 @@ paths:
                 items:
                   $ref: "#/components/schemas/Invoice"
 
-
     post:
       description: creates an invoice
       requestBody:
@@ -45,6 +44,14 @@ paths:
               properties:
                 payment_amount:
                   type: integer
+                publisher:
+                  type: string
+                receiver:
+                  type: string
+              required:
+                - payment_amount
+                - publisher
+                - receiver
       responses:
         200:
           description: creates an invoice successfully
