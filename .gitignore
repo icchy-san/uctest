@@ -1,3 +1,5 @@
 .envrc
 !.envrc.example
 .env
+
+gen/*

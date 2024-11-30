@@ -1,0 +1,72 @@
+openapi: "3.0.0"
+info:
+  title: UCtest API
+  description: Invoice API
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/api
+tags:
+  - name: invoices
+    description: Invoice service
+
+paths:
+  '/invoices':
+    get:
+      description: Retrieve invoices
+      responses:
+        200:
+          description: successful response pattern
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Invoice"
+
+
+    post:
+      description: creates an invoice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payment_amount:
+                  type: integer
+      responses:
+        200:
+          description: creates an invoice successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Invoice"
+
+
+components:
+  schemas:
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: string
+        published_at:
+          type: string
+          format: date-time
+        payment_amount:
+          type: integer
+        commission:
+          type: integer
+        commission_rate:
+          type: number
+        tax:
+          type: integer
+        tax_rate:
+          type: number
+        billed_amount:
+          type: integer
+        due_date:
+          type: string
+          format: date-time
+        status:
+          type: string
