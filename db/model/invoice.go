@@ -5,6 +5,9 @@ import "time"
 type InvoiceStatus string
 
 const (
+	CommissionRate float32 = 4
+	TaxRate        float32 = 10
+
 	InvoiceStatusUnknown    InvoiceStatus = "UNKNOWN"
 	InvoiceStatusUnPaid     InvoiceStatus = "UNPAID"
 	InvoiceStatusProcessing InvoiceStatus = "PROCESSING"
