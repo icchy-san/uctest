@@ -28,6 +28,7 @@ func (s *ServiceAPI) PostInvoices(ctx context.Context, req api.PostInvoicesReque
 }
 
 func New(ctx context.Context, invoiceService service.InvoiceService) *fiber.App {
+	// TODO: add authentication middleware
 	serviceAPI := &ServiceAPI{
 		invoiceService: invoiceService,
 	}
