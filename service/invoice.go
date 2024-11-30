@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"github.com/icchy-san/uctest/db"
 	"github.com/icchy-san/uctest/gen/api"
 )
 
@@ -11,8 +12,11 @@ type InvoiceService interface {
 }
 
 type invoiceService struct {
+	database db.DB
 }
 
-func New() InvoiceService {
-	return &invoiceService{}
+func New(database db.DB) InvoiceService {
+	return &invoiceService{
+		database: database,
+	}
 }
