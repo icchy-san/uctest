@@ -13,6 +13,17 @@ paths:
   '/invoices':
     get:
       description: Retrieve invoices
+      parameters:
+        - in: query
+          name: period_start_at
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: period_end_at
+          schema:
+            type: string
+            format: date-time
       responses:
         200:
           description: successful response pattern
