@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/icchy-san/uctest/config"
 	"os"
 )
 
@@ -15,6 +16,12 @@ func main() {
 }
 
 func realMain(arg []string) int {
-	fmt.Fprintf(os.Stdout, "called")
+	env, err := config.ReadFromEnv()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error reading env: %v\n", err)
+		return exitError
+	}
+
+	fmt.Fprintf(os.Stdout, "%v", env)
 	return exitOK
 }
