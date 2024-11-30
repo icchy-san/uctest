@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-// define db interface
+//go:generate mockgen -source db.go -destination db_mock.go -package db
 type DB interface {
 	GetInvoices(tx *gorm.DB, period_start_at, period_end_at *time.Time) ([]model.Invoice, error)
 }
