@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
-	"github.com/icchy-san/uctest/config"
+	"context"
+	"github.com/icchy-san/uctest/server"
 	"os"
 )
 
@@ -16,12 +16,15 @@ func main() {
 }
 
 func realMain(arg []string) int {
-	env, err := config.ReadFromEnv()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error reading env: %v\n", err)
-		return exitError
-	}
+	ctx := context.Background()
+	//env, err := config.ReadFromEnv()
+	//if err != nil {
+	//	fmt.Fprintf(os.Stderr, "Error reading env: %v\n", err)
+	//	return exitError
+	//}
 
-	fmt.Fprintf(os.Stdout, "%v", env)
+	app := server.New(ctx)
+	app.Listen(":8080")
+
 	return exitOK
 }
