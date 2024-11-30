@@ -6,10 +6,12 @@ import (
 	"github.com/icchy-san/uctest/db/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"time"
 )
 
 // define db interface
 type DB interface {
+	GetInvoices(tx *gorm.DB, period_start_at, period_end_at *time.Time) ([]model.Invoice, error)
 }
 
 type db struct {
