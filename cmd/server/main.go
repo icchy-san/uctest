@@ -3,11 +3,16 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/icchy-san/uctest/config"
 	"github.com/icchy-san/uctest/db"
 	"github.com/icchy-san/uctest/server"
 	"github.com/icchy-san/uctest/service"
-	"os"
+	"golang.org/x/sync/errgroup"
 )
 
 const (
@@ -35,9 +40,23 @@ func realMain(arg []string) int {
 
 	invoiceService := service.New(database)
 
-	// DI
 	app := server.New(ctx, invoiceService)
-	app.Listen(":8080")
+
+	// Start server with error group to track all goroutine error
+	//   and stop all of them when one of them is crashed.
+	eg, ectx := errgroup.WithContext(ctx)
+	eg.Go(func() error {
+		return app.Listen(":8080")
+	})
+
+	signalChannel := make(chan os.Signal, 1)
+	signal.Notify(signalChannel, syscall.SIGTERM, syscall.SIGKILL, os.Interrupt)
+
+	select {
+	case <-signalChannel:
+		log.Println("received signal for killing the process")
+	case <-ectx.Done():
+	}
 
 	return exitOK
 }
