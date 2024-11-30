@@ -5,22 +5,25 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/icchy-san/uctest/gen/api"
+	"github.com/icchy-san/uctest/service"
 )
 
-type ServiceAPI struct{}
+type ServiceAPI struct {
+	invoiceService service.InvoiceService
+}
 
 func (s *ServiceAPI) GetInvoices(ctx context.Context, req api.GetInvoicesRequestObject) (api.GetInvoicesResponseObject, error) {
-	//TODO implement me
-	panic("implement me")
+	return s.invoiceService.GetInvoices(ctx, req)
 }
 
 func (s *ServiceAPI) PostInvoices(ctx context.Context, req api.PostInvoicesRequestObject) (api.PostInvoicesResponseObject, error) {
-	//TODO implement me
-	panic("implement me")
+	return s.invoiceService.PostInvoices(ctx, req)
 }
 
-func New(ctx context.Context) *fiber.App {
-	serviceAPI := &ServiceAPI{}
+func New(ctx context.Context, invoiceService service.InvoiceService) *fiber.App {
+	serviceAPI := &ServiceAPI{
+		invoiceService: invoiceService,
+	}
 
 	app := fiber.New(fiber.Config{})
 	app.Use(recover.New(recover.Config{
